@@ -1,5 +1,6 @@
 package SimpleCaseStudy;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Mainn {
@@ -39,9 +40,22 @@ public class Mainn {
                     break;
                 case 4:
                     // tìm kiếm
+                    System.out.println("--------------Tim kiem theo ten----------");
+                    System.out.println("Nhập tên cần tìm:");
+                    String name = scanner.nextLine();
+                    manager.findByName(name);
                     break;
                 case 5:
                     // cập nhật
+                    System.out.println("----Cập nhật sản phẩm ----");
+                    System.out.println("Nhập id cần cập nhật:");
+                    int idUpdate = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Nhập tên");
+                    String newName = scanner.nextLine();
+                    System.out.println("Nhập giá");
+                    int newPrice = Integer.parseInt(scanner.nextLine());
+                    Product newProduct = new Product(idUpdate,newName,newPrice);
+                    manager.updateById(idUpdate,newProduct);
                     break;
                 default:
                     System.exit(0);

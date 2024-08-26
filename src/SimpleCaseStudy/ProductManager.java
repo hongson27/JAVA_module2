@@ -1,43 +1,73 @@
 package SimpleCaseStudy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductManager {
-    private static Product[] products = new Product[10];
+    private static List<Product> products = new ArrayList<Product>();
     static {
-        products[0] = new Product(1, "Iphone", 1000);
-        products[1] = new Product(2, "Samsung Galaxy", 800);
-        products[2] = new Product(3, "Oppo", 600);
+        Product p1 = new Product(1, "Iphone", 1000);
+        Product p2 = new Product(2, "Samsung Galaxy", 800);
+        Product p3 = new Product(3, "Oppo", 600);
+        products.add(p1);
+        products.add(p2);
+        products.add(p3);
     }
 
     public void display() {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i]!= null) {
-                System.out.println((i+1) + ". " +products[i]);
-            } else {
-                break;
-            }
+        for (Product p : products) {
+            System.out.println(p);
         }
     }
 
     public void add(Product product) {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] == null) {
-                products[i] = product;
-                break;
-            }
-        }
+        products.add(product);
     }
 
     public void deleteById(int id) {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i]!= null && products[i].getId() == id) {
-                for (int j = i; j < products.length -1; j++) {
-                    products[j] = products[j + 1];
-                }
-                products[products.length - 1] = null;
-                break;
+        boolean found = false;
+        for (Product p : products) {
+            if (p != null && p.getId() == id) {
+                products.remove(p);
+                return;
             } else {
-                System.out.println("Không tìm thấy sản phẩm có mã " + id);
+                found = true;
             }
+        }
+        if (found) {
+            System.out.println("Không tìm thấy sản phẩm có mã " + id);
+        }
+    }
+
+    public void findByName(String name) {
+        List<Product> newList = new ArrayList<>();
+        boolean test = true;
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                newList.add(product);
+                System.out.println(product);
+                test = false;
+            }
+        }
+        if (test) {
+            System.out.println("Không tìm thấy sản phẩm có tên " + name);
+        }
+        System.out.println("----------------------------------------------------------------");
+    }
+
+
+    public void updateById(int id, Product newProduct) {
+        boolean found = true;
+        for (Product p : products) {
+            if (p!= null && p.getId() == id) {
+                p.setName(newProduct.getName());
+                p.setPrice(newProduct.getPrice());
+                found = false;
+                break;
+            }
+        }
+        if (found) {
+            System.out.println("Không tìm thấy sản phẩm có mã " + id);
         }
     }
 
